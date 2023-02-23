@@ -1,4 +1,4 @@
-function [adcBreak,adcAccel,adcPitot] = adcCategorize(adcRawData)
+function result = adcCategorize(adcRawData)
     for n = 1 : 1 : length(adcRawData)/14
             dataType(n,1)               = adcRawData(14*n-13,1);                                        % dataType(1byte) == 0x01 == ADC
             
@@ -27,11 +27,7 @@ function [adcBreak,adcAccel,adcPitot] = adcCategorize(adcRawData)
             tick_sum(n,1)               = tick(4*n-3,1) + tick(4*n-2,1) + tick(4*n-1,1) + tick(4*n,1); 
     
     end
-    
-    adcBreak = [tick_sum, adcBreakData];       
-    adcAccel = [tick_sum, adcBreakData];       
-    adcPitot = [tick_sum, adcBreakData];       
-    
-    
+
+    result = [tick_sum adcBreakData adcAccelData adcPitotData];
 end
 

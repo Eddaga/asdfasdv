@@ -1,4 +1,4 @@
-function [rtcSec,rtcMin,rtcHour,tick_sum] = rtcCategorize(rtcRawData)
+function result = rtcCategorize(rtcRawData)
        for n = 1 : 1 : length(rtcRawData)/41
             dataType(n,1)       = rtcRawData(41*n-40,1);               % dataType(1byte) == 0x00 == IMU
             
@@ -32,9 +32,8 @@ function [rtcSec,rtcMin,rtcHour,tick_sum] = rtcCategorize(rtcRawData)
             tick(4*n,1)            = 2^8 * 2^8 * 2^8 * rtcRawData(41*n,1);                               % tick(4byte)
             tick_sum(n,1)          = tick(4*n-3,1) + tick(4*n-2,1) + tick(4*n-1,1) + tick(4*n,1);
        end
-       rtcSec = [tick_sum, rtcSecData];
-       rtcMin = [tick_sum, rtcMinData];
-       rtcHour = [tick_sum, rtcHourData];
+
+       result = [tick_sum, rtcSecData rtcMinData rtcHourData];
        
 end
 

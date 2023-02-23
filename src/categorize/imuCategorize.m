@@ -1,4 +1,4 @@
-function [imuAccX,imuAccY,imuAccZ,imuGyroX,imuGyroY,imuGyroZ] = imuCategorize(imuRawData)
+function result = imuCategorize(imuRawData)
 n = 0;
 imu_accel_sensitivity = 2048;
 imu_gyro_sensitivity = 16.4;
@@ -98,12 +98,7 @@ imuGyroZData_t = zeros(filelength,1);
     imuGyroYData_t = imuGyroYData_t';
     imuGyroZData_t = imuGyroZData_t';
     %}
-    imuAccX = [tick_sum, imuAccX];
-    imuAccY = [tick_sum, imuAccY];
-    imuAccZ = [tick_sum, imuAccZ];
-    
-    imuGyroX = [tick_sum, imuGyroX];
-    imuGyroY = [tick_sum, imuGyroY];
-    imuGyroZ = [tick_sum, imuGyroZ];
+
+    result = [tick_sum imuAccX imuAccY imuAccZ imuGyroX imuGyroY imuGyroZ imuTempData];
 end
 

@@ -1,4 +1,4 @@
-function [gpsLat,gpsLong] = gpsCategorize(gpsRawData)
+function result = gpsCategorize(gpsRawData)
  for n = 1 : 1 : length(gpsRawData)/13
             dataType(n,1)       = gpsRawData(13*n-12,1);               % dataType(1byte) == 0x04 == GPS
             
@@ -26,7 +26,6 @@ function [gpsLat,gpsLong] = gpsCategorize(gpsRawData)
             tick(4*n,1)            = 2^8 * 2^8 * 2^8 * gpsRawData(13*n,1);                               % tick(4byte)
             tick_sum(n,1)              = tick(4*n-3,1) + tick(4*n-2,1) + tick(4*n-1,1) + tick(4*n,1);
  end
-        gpsLat = [tick_sum gpsLatitudeData];
-        gpsLong = [tick_sum gpsLongitudeData];
+        result = [tick_sum gpsLatitudeData gpsLongitudeData];
 end
 
